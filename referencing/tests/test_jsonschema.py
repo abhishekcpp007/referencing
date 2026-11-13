@@ -108,6 +108,21 @@ def test_subresources_of_bool(specification, value):
 
 
 @pytest.mark.parametrize(
+    "specification",
+    [
+        referencing.jsonschema.DRAFT7,
+        referencing.jsonschema.DRAFT6,
+        referencing.jsonschema.DRAFT4,
+        referencing.jsonschema.DRAFT3,
+    ],
+)
+def test_subresources_of_mixed_dependencies(specification):
+    schema = {"minimum": 0}
+    contents = {"dependencies": {"foo": ["bar"], "baz": schema}}
+    assert list(specification.subresources_of(contents)) == [schema]
+
+
+@pytest.mark.parametrize(
     "uri, expected",
     [
         (

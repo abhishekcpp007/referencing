@@ -226,11 +226,9 @@ def _subresources_of_with_crazy_items_dependencies(
                 yield items
         dependencies = contents.get("dependencies")
         if dependencies is not None:
-            values = iter(dependencies.values())
-            value = next(values, None)
-            if isinstance(value, Mapping):
-                yield value
-                yield from values
+            for value in dependencies.values():
+                if isinstance(value, Mapping):
+                    yield value
 
     return subresources_of
 
@@ -263,11 +261,9 @@ def _subresources_of_with_crazy_aP_items_dependencies(
                 yield items
         dependencies = contents.get("dependencies")
         if dependencies is not None:
-            values = iter(dependencies.values())
-            value = next(values, None)
-            if isinstance(value, Mapping):
-                yield value
-                yield from values
+            for value in dependencies.values():
+                if isinstance(value, Mapping):
+                    yield value
 
         for each in "additionalItems", "additionalProperties":
             value = contents.get(each)
